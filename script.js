@@ -4,7 +4,6 @@ let items = document.querySelectorAll('.item img'),
     title = document.querySelector(".results"),
     cpuImage = document.querySelector(".cpu-images img");
 
-
 // loop for every item
 items.forEach((item) => {
     item.addEventListener('click', function () {
@@ -19,15 +18,15 @@ items.forEach((item) => {
 
 // the  main function
 function checkGame(el) {
-    title.textContent = "wait .."
-    userImage.style.cssText = "  animation: userShake 0.7s ease infinite;"
-    cpuImage.style.cssText = "  animation: cpuShake 0.7s ease infinite;"
+    title.textContent = "Wait..."
+    userImage.style.cssText = "animation: userShake 0.7s ease infinite;"
+    cpuImage.style.cssText = "animation: cpuShake 0.7s ease infinite;"
     userImage.src = "images/rock.png"
     cpuImage.src = "images/rock.png"
 
     let time = setTimeout(() => {
-        userImage.style.cssText = "  animation: none;"
-        cpuImage.style.cssText = "  animation: none;"
+        userImage.style.cssText = "animation: none;"
+        cpuImage.style.cssText = "animation: none;"
         // user option
         let userOption = el.src;
         userImage.src = userOption;
@@ -37,18 +36,17 @@ function checkGame(el) {
         let randomNumber = Math.floor(Math.random() * 3);
         let cpuOption = images[randomNumber];
         cpuImage.src = cpuOption;
-        if (userOption.slice(22,) === cpuOption) {
+
+        if (userOption.includes('rock') && cpuOption.includes('scissors') ||
+            userOption.includes('paper') && cpuOption.includes('rock') ||
+            userOption.includes('scissors') && cpuOption.includes('paper')) {
+            title.textContent = "Player Win!";
+        } else if (userOption.includes('rock') && cpuOption.includes('rock') ||
+            userOption.includes('paper') && cpuOption.includes('paper') ||
+            userOption.includes('scissors') && cpuOption.includes('scissors')) {
             title.textContent = "It's a Draw!";
-        } else if (
-            (userOption.slice(22,) === images[0] && cpuOption === images[2]) ||
-            (userOption.slice(22,) === images[1] && cpuOption === images[0]) ||
-            (userOption.slice(22,) === images[2] && cpuOption === images[1])
-        ) {
-            title.innerHTML = "Player Win!";
         } else {
-            title.innerHTML = "Player lose!";
+            title.textContent = "Player lose!";
         }
     }, 2000)
-
 }
-
